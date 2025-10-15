@@ -1,5 +1,5 @@
 const express = require('express');
-const crypto = require('crypto');
+const crypto = require('node:crypto');
 const app = express();
 const port = 3000;
 
@@ -11,7 +11,6 @@ app.use(express.json());
 // If necessary to add imports, please do so in the section above
 
 const users = [];
-const makeId = () => crypto.randomUUID ? crypto.randomUUID() : crypto.randomBytes(16).toString('hex');
 
 // CREATE a user
 app.post('/users', (req, res) => {
@@ -21,9 +20,8 @@ app.post('/users', (req, res) => {
         return res.sendStatus(400);
     }
 
-
     const user = { 
-        id: makeId(), name, email 
+        id: crypto.randomUUID(), name, email 
     };
 
     users.push(user);
